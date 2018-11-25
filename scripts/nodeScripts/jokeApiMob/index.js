@@ -24,7 +24,7 @@ app.get('/', function (req, res) {
 })
 app.post('/addQuote',function(req,res){
 Quotes.create(req.body, function (err) {
-  if (err) return handleError(err);
+  if (err) console.log(err);
   // saved!
 })
 })
@@ -32,8 +32,11 @@ app.get('/searchAuthor', function (req, res) {
   res.sendFile(path.join(__dirname,'searchAuthor.html'))
 })
 app.post('/searchAuthor',function (req,res){
-	Quotes.find({author : req.body.author,function(err,docs){
-		console.log(docs)
+
+	Quotes.find({author : req.body.searchQuery},function(err,docs){
+    docs.forEach(function(doc){
+    console.log(doc.quote)
+  })
 	})
 })
 app.listen(3000)
