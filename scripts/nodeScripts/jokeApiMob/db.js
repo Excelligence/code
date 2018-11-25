@@ -18,14 +18,5 @@ const quotesSchema = new mongoose.Schema({
 })
 
 const Quotes= mongoose.model('Quotes', quotesSchema);
-
-Quotes.create({ quote: 'You\’re always learning. The problem is, sometimes you stop and think you understand the world. This is not correct. The world is always moving. You never reach the point you can stop making an effort.',author:'Paulo Coelho' }, function (err, small) {
-  if (err) return handleError(err);
-  // saved!
-});
-
-//Quotes.deleteMany({ quote: /change/i }, function (err) {
-  //if (err) return handleError(err);
-  // deleted at most one tank document
-//});
+module.exports=Quotes
 
