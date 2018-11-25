@@ -1,6 +1,6 @@
 /ignore
-*/details.js
-*/node_modules
-*/emmet-vim
+details.js
+/node_modules
+/emmet-vim
 
 
