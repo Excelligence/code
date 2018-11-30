@@ -6,6 +6,12 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const details= require('./details')
 const Quotes= require('./db')
+const exphbs  = require('express-handlebars');
+ 
+ 
+app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.set('view engine', 'handlebars');
+ 
 mongoose.connect(details.mlabDet);
  
 // parse application/x-www-form-urlencoded
@@ -22,6 +28,10 @@ app.use(bodyParser.json())
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname,'index.html'))
 })
+app.get('/home',function(req,res){
+	res.render('home',{quote:'this is a quote',
+	author:'gandhi'})
+})
 app.post('/addQuote',function(req,res){
 Quotes.create(req.body, function (err) {
   if (err) console.log(err);
@@ -34,9 +44,9 @@ app.get('/searchAuthor', function (req, res) {
 app.post('/searchAuthor',function (req,res){
 
 	Quotes.find({author : req.body.searchQuery},function(err,docs){
-    docs.forEach(function(doc){
-    console.log(doc.quote)
-  })
+res.render('home',{docs:docs})
+if(err)		
+console.log(err)		
 	})
 })
 app.listen(3000)
